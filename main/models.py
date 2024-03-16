@@ -10,3 +10,5 @@ class Person(models.Model):
     prog_lang=models.CharField(max_length=100)
     start_date=models.DateField()
     confirm=models.BooleanField()
+    def __str__(self):
+        return f"{self.name} {self.last_name}"

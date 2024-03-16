@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>It form edit</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+<body>
+    <h1>edit the form</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>personal info</legend>
+
+            <p>
+                <label for="name">your name:</label>
+                <input type="text" id="name" name="name" value={{person.name}}> 
+            </p>
+            
+            <p>
+                <label for="last_name">your last name:</label>
+                <input type="text" id="last_name" name="last_name" value={{person.last_name}}> 
+            </p>
+
+            <p>
+                <label for="age">your age:</label>
+                <input type="number" id="age" name="age" min="10" max="150" value={{person.age}}> 
+            </p>
+        
+            <p>
+                <label for="gender">your gender:</label>
+
+                {% if person.gender == "male" %}
+                <input type="radio" id="male" name="gender" value="male" checked>
+                {% else %}
+                <input type="radio" id="male" name="gender" value="male">
+                {% endif %}
+                
+                <label for="male">male</label> 
+                <input type="radio" id="female" name="gender" value="female" {% if person.gender == "female" %}checked{% endif %}>
+                <label for="female">female</label> 
+
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>contact</legend>
+
+            <p>
+                <label for="email">your email:</label>
+                <input type="email" id="email" name="email" value={{person.email}}> 
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>programming skill</legend>
+
+            <p>
+                <label for="lang">your language:</label>
+                <select name="prog_lang" id="lang" value={{person.prog_lang}}>
+                    <option value="python">python</option>
+                    <option value="javascript">javascript</option>
+                    <option value="java">java</option>
+                    <option value="kotlin">kotlin</option>
+                </select>
+            </p>
+
+            <p>
+                <label for="date">when started learning?:</label>
+                <input type="date" id="date" name="start_date" value={{person.start_date|date:"Y-m-d"}}> 
+            </p>
+        </fieldset>
+        <p>
+            <label for="confirm">can we show your personal info?</label>
+            <input type="checkbox" id="confirm" name="confirm" {% if person.confirm %}checked{% endif %}> 
+        </p>
+        <button>send</button>
+        <a href="{% url "home" %}">cancel</a>
+    </form>
+</body>
+</html>

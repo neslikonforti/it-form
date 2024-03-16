@@ -1,11 +1,59 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>It form</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
+
     <h1>welcome to it form</h1>
+    <a href="/fill">fill form</a>
+    <table>
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>last name</th>
+                <th>email</th>
+                <th>age</th>
+                <th>gender</th>
+                <th>programming language</th>
+                <th>start date</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in people %}
+            <tr>
+                <td>{{person.name}}</td>
+                <td>{{person.last_name}}</td>
+                <td>{{person.email}}</td>
+                <td>{{person.age}}</td>
+                <td>
+                    {% if person.gender == "female" %}
+                    <img src="{% static "images/female.png" %}" alt="">
+                    {% else %}
+                    <img src="{% static "images/male.png" %}" alt="">
+                    {% endif %}
+                </td>
+                <td>
+                    {% comment %} <img src="{% static 'images/{{person.prog_lang}}.png' %}" alt=""> {% endcomment %}
+                    <img src="{% static "images/" %}{{person.prog_lang}}.png" alt="">
+                </td>
+                <td>{{person.start_date|date:"m/d/Y"}}</td>
+
+                <td>
+                    <a href="{% url "edit" person.id %}">Edit</a>
+                </td>
+                <td>
+                    <a href="{% url "delete" person.id %}" class="danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

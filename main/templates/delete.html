@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete it form</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+<body>
+    <h1>Are you sure deleting this person? <span>{{person.name}} {{person.last_name}}</span></h1>
+    <a href="{% url "confirm" person.id%}">yes</a>
+    <a href="{% url "home" %}">no</a>
+</body>
+</html>
